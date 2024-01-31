@@ -6,12 +6,14 @@ export const algorithmsArr: Algorithm[] = [
   {
     title: "Bubble Sort",
     func: bubbleSort,
+    timeComplexity: "O(n^2)",
     description:
       "A simple comparison-based sorting algorithm. It works by repeatedly swapping adjacent elements if they are in the wrong order.",
     slug: "bubble-sort",
   },
   {
     title: "Insertion Sort",
+    timeComplexity: "O(n^2)",
     func: insertionSort,
     description:
       "A simple comparison-based sorting algorithm. It works by repeatedly swapping adjacent elements if they are in the wrong order.",
@@ -19,6 +21,7 @@ export const algorithmsArr: Algorithm[] = [
   },
   {
     title: "Quick Sort",
+    timeComplexity: "O(n log n)",
     func: quickSort,
     description:
       "A simple comparison-based sorting algorithm. It works by repeatedly swapping adjacent elements if they are in the wrong order.",
