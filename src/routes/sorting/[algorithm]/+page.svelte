@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { bubbleSort } from "$lib/algorithms/algorithms";
+  import type { PageData } from "./$types";
   import { scaleBarHeight } from "$lib/utility/scaleHeight";
   import { flip } from "svelte/animate"; // Import flip transition
   import { writable } from "svelte/store";
+
+  export let data: PageData;
 
   let uidCounter = 0;
   let arr = writable(
@@ -14,7 +16,7 @@
   function randomize() {
     arr.update((items) => {
       items.forEach((item) => {
-        item.num = Math.floor(Math.random() * 100);
+        item.num = Math.floor(Math.random() * 120);
       });
       return items;
     });
@@ -23,11 +25,13 @@
   randomize();
 
   async function sort() {
-    await bubbleSort(arr);
+    await data.algorithm.func(arr);
   }
 </script>
 
-<main class="mx-10">
+<main>
+  <h1>{data.algorithm.title}</h1>
+  <p>{data.algorithm.description}</p>
   <div class="mt-20 mx-auto flex flex-col items-center justify-center">
     <ul
       class="flex row-auto space-x-5 text-xl w-full justify-center items-end px-10"
@@ -46,20 +50,20 @@
     <hr class="w-full my-5" />
     <div class="fixed bottom-0 right-0 flex flex-row space-x-5 p-5">
       <button
-        class="btn btn-outline"
+        class="btn btn-secondary btn-sm"
         on:click={() => {
           sort();
         }}
       >
-        Click to sort
+        Sort
       </button>
       <button
-        class="btn btn-outline"
+        class="btn btn-accent btn-sm"
         on:click={() => {
           randomize();
         }}
       >
-        Click to randomize
+        Randomize
       </button>
     </div>
   </div>
