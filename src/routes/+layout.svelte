@@ -59,7 +59,7 @@
           >
         </label>
       </div>
-      <a href="/" class="flex-1 px-2 mx-2">Navbar Title</a>
+      <a href="/" class="flex-1 px-2 mx-2 font-bold">AlgoVis 2.0</a>
       <div class="flex-none hidden lg:block">
         <ul class="menu menu-horizontal">
           <!-- Navbar menu content here -->
@@ -76,6 +76,7 @@
       <div
         in:fly={{ y: -200, duration: 400, delay: 400 }}
         out:fly={{ y: 200, duration: 400 }}
+        class="overflow-x-hidden"
       >
         <slot />
       </div>

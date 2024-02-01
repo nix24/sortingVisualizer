@@ -17,7 +17,7 @@ export const bubbleSort = async (arrStore: Writable<ArrayElement[]>) => {
       if (localArr[i].num > localArr[i + 1].num) {
         swap(i, i + 1, localArr);
         arrStore.set([...localArr]); // Update the store to trigger reactivity
-        await new Promise((resolve) => setTimeout(resolve, 500)); // Add delay
+        await new Promise((resolve) => setTimeout(resolve, 300)); // Add delay
         isSorted = false;
       }
     }
@@ -81,14 +81,14 @@ const quickSortHelper = async (
     if (arr[left].num > arr[pivot].num && arr[right].num < arr[pivot].num) {
       swap(left, right, arr);
       arrStore.set([...arr]); // Update the store to trigger reactivity
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Add delay
+      await new Promise((resolve) => setTimeout(resolve, 300)); // Add delay
     }
     if (arr[left].num <= arr[pivot].num) left++;
     if (arr[right].num >= arr[pivot].num) right--;
   }
   swap(pivot, right, arr);
   arrStore.set([...arr]); // Update the store to trigger reactivity
-  await new Promise((resolve) => setTimeout(resolve, 500)); // Add delay
+  await new Promise((resolve) => setTimeout(resolve, 300)); // Add delay
   const leftSubarrayIsSmaller = right - 1 - start < end - (right + 1);
   if (leftSubarrayIsSmaller) {
     quickSortHelper(arr, start, right - 1, arrStore);

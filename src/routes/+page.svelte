@@ -1,7 +1,35 @@
-<script>
+<script lang="ts">
+  import { algorithmsArr } from "$lib/algorithms/algorithmsArr";
 </script>
 
-<main>
-  <h1>Page</h1>
-  <p>This is a page.</p>
+<main class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-lg space-y-10">
+      <!-- Header with a catchy title -->
+      <h1 class="text-5xl font-bold text-primary">
+        Sorting Algorithm Visualizer
+      </h1>
+
+      <!-- Description paragraph -->
+      <p class="">
+        Explore the fascinating world of sorting algorithms. Watch how different
+        algorithms like Quick Sort, Merge Sort, and Bubble Sort tackle data
+        sorting in real-time. An interactive way to learn and understand the
+        efficiency and logic behind each algorithm.
+      </p>
+
+      <!-- Interactive Elements -->
+      <!-- Button to start the visualization -->
+      <div class="">
+        <a class="btn btn-primary" href={`/sorting/${algorithmsArr[0].slug}`}
+          >Visualize Algorithms</a
+        >
+        <!-- Additional options -->
+        <div class="py-4">
+          <a href="/" class="btn btn-secondary mx-2">Learn More</a>
+          <a href="/" class="btn btn-accent mx-2">Algorithm Types</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
