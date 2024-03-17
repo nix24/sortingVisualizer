@@ -4,7 +4,7 @@
 
 <main class="hero min-h-screen bg-base-200">
   <div class="hero-content text-center">
-    <div class="max-w-lg space-y-10">
+    <div class="max-w-lgd space-y-10">
       <!-- Header with a catchy title -->
       <h1 class="text-5xl font-bold text-primary">
         Sorting Algorithm Visualizer
@@ -19,15 +19,12 @@
       </p>
 
       <!-- Interactive Elements -->
-      <!-- Button to start the visualization -->
       <div class="">
         <a class="btn btn-primary" href={`/sorting/${algorithmsArr[0].slug}`}
           >Visualize Algorithms</a
         >
-        <!-- Additional options -->
         <div class="py-4">
-          <a href="/" class="btn btn-secondary mx-2">Learn More</a>
-          <a href="/" class="btn btn-accent mx-2">Algorithm Types</a>
+          <a href="/compare" class="btn btn-secondary mx-2">Compare Speeds </a>
         </div>
       </div>
     </div>

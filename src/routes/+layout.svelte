@@ -1,12 +1,15 @@
 <script lang="ts">
   import "../app.pcss";
   import { algorithmsArr } from "$lib/algorithms/algorithmsArr";
+  import { groupAlgo } from "$lib/utility/groupAlgo";
   import type { PageData } from "./$types";
   import { fly } from "svelte/transition";
 
   export let data: PageData;
+  let groupedAlgorithms = groupAlgo(algorithmsArr);
+
   // Define the action
-  function closeDrawer(node: HTMLElement) {
+  function closeDrawer(node: HTMLElement): { destroy(): void } {
     // Get all links within the drawer
     const links = node.querySelectorAll("a");
 
@@ -32,9 +35,25 @@
       },
     };
   }
+  //svelte action to close dropdown when user clicks elsewhere
+  function closeDropdown(node: HTMLElement): { destroy(): void } {
+    const handler = (event: MouseEvent) => {
+      if (!node.contains(event.target as Node)) {
+        node.removeAttribute("open");
+      }
+    };
+
+    document.addEventListener("click", handler);
+
+    return {
+      destroy() {
+        document.removeEventListener("click", handler);
+      },
+    };
+  }
 </script>
 
-<div class="drawer" use:closeDrawer>
+<nav class="drawer" use:closeDrawer>
   <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content flex flex-col">
     <!-- Navbar -->
@@ -83,12 +102,54 @@
     {/key}
   </div>
   <div class="drawer-side">
-    <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"
+    <label for="my-drawer-3" class="drawer-overlay" aria-label="Close sidebar"
     ></label>
-    <ul class="menu p-4 w-80 min-h-full bg-base-200">
-      {#each algorithmsArr as algorithm}
-        <li><a href={`/sorting/${algorithm.slug}`}>{algorithm.title}</a></li>
+    <ul class="menu p-4 w-80 min-h-full bg-base-200 overflow-y-auto">
+      <!-- Sidebar Title -->
+      <li class="text-primary mb-4">
+        <a href="/" class="text-lg font-bold">Sorting Algorithms</a>
+      </li>
+
+      <!-- Sidebar Items: Improved format with hover and focus states -->
+      <!-- {#each algorithmsArr as algorithm}
+        <li class="rounded-lg">
+          <a
+            href={`/sorting/${algorithm.slug}`}
+            class="items-center p-2 transition-colors duration-200 relative block text-secondary hover:bg-primary hover:text-white focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50"
+          >
+            <span class="ml-3">{algorithm.title}</span>
+          </a>
+        </li>
+      {/each} -->
+      {#each Object.keys(groupedAlgorithms) as algoType}
+        <li>
+          <details class="dropdown" use:closeDropdown>
+            <summary class="btn m-1">{algoType}</summary>
+            <ul
+              class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+            >
+              {#each groupedAlgorithms[algoType] as algorithm}
+                <li class="rounded-lg">
+                  <a
+                    class="items-center p-2 transition-colors duration-200 relative block text-secondary hover:bg-primary hover:text-primary-content focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50"
+                    href={`/sorting/${algorithm.slug}`}>{algorithm.title}</a
+                  >
+                </li>
+              {/each}
+            </ul>
+          </details>
+        </li>
       {/each}
+      <hr class="my-4 border-base-300" />
+      <!-- Additional Links or Info -->
+      <li class="mt-4 pt-4 border-base-300">
+        <a
+          href="/about"
+          class="items-center p-2 transition-colors duration-200 relative block text-accent hover:bg-secondary hover:text-white focus:outline-none focus:ring focus:ring-secondary focus:ring-opacity-50"
+        >
+          <span class="ml-3">About Visualizer</span>
+        </a>
+      </li>
     </ul>
   </div>
-</div>
+</nav>
